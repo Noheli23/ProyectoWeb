@@ -1,10 +1,17 @@
+
+body{
+    font-family:'Times New Roman', Times, serif;
+   
+}
+
+
 nav{
     background-color:#62757f;
     color: white;
 }
 
 #carrusel img{
-height: 300px;
+
 width: 100%;
 }
 
@@ -26,4 +33,11 @@ footer{
 
 #from{
     background-color:#f5f5f5;
+}
+#insta img{
+    width: 100%;
+   
+}
+#imagenes img{
+    width: 100%;
 }
