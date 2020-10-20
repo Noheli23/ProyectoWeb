@@ -55,11 +55,11 @@
         </a>
       </div>
 <!--From -->
-<div class="container text-center mt-4">
+<div class="container text-center mt-4" id="registros">
     <h3>Registro de nueva marca</h3>
 </div>
 <div class="container p-4 mt-5 mb-5 border shadow rounded col-sm-9 " id="from">
-    <form action="../php/Rmarca.php" method="POST">
+    <form action="../php/Rmarca.php" method="POST" id="Fmarca">
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
           <div class="col-sm-10">
@@ -75,7 +75,7 @@
     
         <div class="form-group row text-center">
           <div class="col-sm-12">
-           <a href="../index.html"><button type="submit" class="btn btn-primary">Guardar</button></a> 
+           <a href="marca.html"><button type="submit" id="guardar" class="btn btn-primary">Guardar</button></a> 
             
           </div>
         </div>
@@ -126,5 +126,36 @@
     crossorigin="anonymous"></script>     
 <script src="../js/datos.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#guardar').click(function(){
+  var datos=$('#Fmarca').serialize();
+  
+   $.ajax({
+     type: "POST",
+     url: "../php/Rmarca.php",
+     data: datos,
+     success: function(r){
+      if(r==1){
+      window.alert("Marca registrada")
+        
+    }else if(r==2){
+      window.alert("La marca no ha sido registrada")
+    }else if(r==3){
+      window.alert("La marca ya existe")
+    }else{
+      window.alert("Llenar todos los campos")
+    }
+  
+     }
+   });
+   return false;
+  });
+  
+  });
+  </script>
+
+
 </body>
 </html>

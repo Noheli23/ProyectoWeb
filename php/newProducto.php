@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de productos</title>
+    <title>Nuevo producto</title>
     <link rel="stylesheet" href="../css/estilo.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/brands.css"> 
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/solid.css">
-
+    
 </head>
 <body>
 
@@ -25,10 +25,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav mr-0 ml-auto mt-2 mt-lg-0 text-center">
-            <a class="nav-link" href="#">Marcas</a>
-            <a class="nav-link" href="#">Categorias</a>
-            <a class="nav-link active" href="#">Productos</a>
-            <a class="nav-link " href="#">Datos de la empresa</a>
+            <a class="nav-link" href="../html/marca.html">Marcas</a>
+            <a class="nav-link" href="../html/categoria.html">Categorias</a>
+            <a class="nav-link active" href="tablaProducto.php">Productos</a>
+            <a class="nav-link " href="../html/empresa.html">Datos de la empresa</a>
           </div>
         </div>
       </nav>
@@ -54,10 +54,95 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-
+<!--From -->
 <div class="container text-center mt-4">
-  <h4>Listado de productos</h4>
+    <h3>Regitro de nuevo producto</h3>
 </div>
+<div class="container p-4 mt-5 mb-5 border shadow rounded col-sm-9" id="from">
+    <form>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Referencia</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputEmail3">
+            </div>
+          </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputEmail3">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Valor</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="inputEmail3">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Marca</label>
+          <div class="col-sm-10">
+          <select class="form-control">
+                <option value="0">Seleccione</option>
+                <?php
+            require("conexion.php");
+            $consulta = "SELECT * FROM marca";
+            $resultado = $conexion->query($consulta);
+            while ($fila = $resultado->fetch_assoc()) {
+              ?>
+                    <option value="<?php echo $fila['id']; ?>"><?php echo $fila['nombre']; ?></option>
+                    <?php
+                                  }
+                ?>
+              </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Categoría</label>
+          <div class="col-sm-10">
+
+              <select class="form-control">
+                <option value="0">Seleccione</option>
+                <?php
+            require("conexion.php");
+            $consulta = "SELECT * FROM categoria";
+            $resultado = $conexion->query($consulta);
+            while ($fila = $resultado->fetch_assoc()) {
+              ?>
+                    <option value="<?php echo $fila['id']; ?>"><?php echo $fila['nombre']; ?></option>
+                    <?php
+                                  }
+                ?>
+              </select>
+            
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="message-text" class="col-sm-2 col-form-label">Descripción</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="message-text"placeholder=""></textarea> 
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Detalle</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="message-text"placeholder=""></textarea> 
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Imagen</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control-file" id="default" placeholder="Name"> 
+          </div>
+        </div>
+    
+        <div class="form-group row text-center">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </form>
+</div>
+<div class="container" id="contenedor"></div>
 
  <!--Footer-->
 <footer class="footer py-2">
@@ -75,8 +160,8 @@
                     <a href=""><i class="fab fa-twitter-square fa-2x" title="Twitter"></i></a>
                     <a href=""><i class="fab fa-instagram fa-2x" title="Instagram"></i></a>
                     <br>
-                    <a href="#"data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                    <button type="button" class="btn btn-primary btn-sm">Contactanos</button></a>
+                    <a href="#"data-toggle="modal" id="selh3" data-target="#exampleModal" data-whatever="@mdo">
+                    <button type="button"  class="btn btn-primary btn-sm">Contactanos</button></a>
             </div>
             
             

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva categoría</title>
+    <title>Tabla de marcas</title>
     <link rel="stylesheet" href="../css/estilo.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/brands.css"> 
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/solid.css">
+
+  
 
 </head>
 <body>
@@ -25,10 +27,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav mr-0 ml-auto mt-2 mt-lg-0 text-center">
-            <a class="nav-link " href="marca.html">Marcas</a>
-            <a class="nav-link active" href="categoria.html">Categorias</a>
-            <a class="nav-link" href="newProducto.html">Productos</a>
-            <a class="nav-link " href="empresa.html">Datos de la empresa</a>
+            <a class="nav-link" href="#">Marcas</a>
+            <a class="nav-link" href="#">Categorias</a>
+            <a class="nav-link active" href="#">Productos</a>
+            <a class="nav-link " href="#">Datos de la empresa</a>
           </div>
         </div>
       </nav>
@@ -54,34 +56,106 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-<!--From -->
+<!--Tabla -->
 <div class="container text-center mt-4">
-    <h3>Registro de nueva categoría</h3>
+  <h3>Listado de marcas</h3>
 </div>
-<div class="container p-4 mt-5 mb-5 border shadow rounded col-sm-9 " id="from">
-    <form action="../php/Rcategoria.php" method="POST" id="Fcategoria">
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEmail3"name="nombre"  required>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="message-text" class="col-sm-2 col-form-label">Descripción</label>
-          <div class="col-sm-10">
-            <textarea class="form-control" id="message-text" name="descri" required></textarea> 
-          </div>
-        </div>
+<div class="container">
+                
+  <table class="table table-bordered table-hover"><br>
+    <thead class="text-center">
+      <tr>
+                               
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php       
+                            
+      require("conexion.php");
+      $consulta = "SELECT * FROM marca";
+      $resultado = $conexion->query($consulta);
+      while ($fila = $resultado->fetch_assoc()) {
+        
+      ?>
+      <tr>
+      <td> <?php echo $fila['nombre']; ?></td>
+      <td> <?php echo $fila['descripcion']; ?></td>
+                                
+      <td class="text-center">
+      <a data-toggle="modal" data-target="#exampleModal" href="#" onclick="dato(<?php echo $fila['id'];?>)">
+      <i class="fas fa-edit"></i></a></td>
+      <td class="text-center"><a href="#" data-toggle="modal" data-target="#exampleModal2" onclick="dato2(<?php echo $fila['id'];?>)">
+      <i class="fas fa-trash" style="color:#d32f2f;"></i></a></td>
+      </tr>
+      <?php
+      }
+      ?>
+    </tbody>
+    </table>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar marca</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
     
-        <div class="form-group row text-center">
-          <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary" id="guardar">Guardar</button>
+      <form action="editarMarca.php" id="Fmarca" method="POST">
+          <div class="form-group">
+           
+            <p id="espacio"></p>
+            <label for="recipient-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" name="nombre" id="recipient-name" require>
           </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Descripción:</label>
+            <textarea class="form-control" id="message-text" name="descri" require></textarea>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" id="guardar" class="btn btn-primary" >Guardar cambios</button> 
+           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="eliminarMarca.php" method="POST">
+        
+         ¿Desea eliminar marca?
+         <p id="espacio2"></p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Eliminar</button>
+      </div>
+        </form>
         </div>
-      </form>
+    </div>
+  </div>
 </div>
-</div>
-<!--Footer-->
+ <!--Footer-->
 <footer class="footer py-2">
     <div class="container ">
         <div class="row">
@@ -92,13 +166,14 @@
                 <br>
                 Teléfono: 3132070709 
             </div>
-                <div class="col col-sm-2 " id="redes">
+                <div class="col col-sm-2" id="redes">
                     <a href=""><i class="fab fa-facebook-square fa-2x" title="Facebook"></i></a>
                     <a href=""><i class="fab fa-twitter-square fa-2x" title="Twitter"></i></a>
                     <a href=""><i class="fab fa-instagram fa-2x" title="Instagram"></i></a>
+                    
                     <br>
                     <a href="#"data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                    <button type="button" class="btn btn-primary btn-sm">Contactanos</button></a>
+                    <button type="submit" class="btn btn-primary btn-sm">Contactanos</button></a>
             </div>
             
             
@@ -112,8 +187,6 @@
 </footer>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
@@ -123,37 +196,36 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>     
-<script src="../js/form.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="../js/form.js" ></script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-  $('#guardar').click(function(){
-  var datos=$('#Fcategoria').serialize();
-  
-   $.ajax({
-     type: "POST",
-     url: "../php/Rcategoria.php",
-     data: datos,
-     success: function(r){
-      if(r==1){
-      window.alert("Categoría registrada")
+$(document).ready(function(){
+$('#guardar').click(function(){
+var datos=$('#Fmarca').serialize();
+
+ $.ajax({
+   type: "POST",
+   url: "editarMarca.php",
+   data: datos,
+   success: function(r){
+    if(r==1){
+      window.alert("La marca ha sido editada")
     }else if(r==2){
-      window.alert("La categoría no ha sido registrada")
+      window.alert("La marca no ha sido editada")
     }else if(r==3){
-      window.alert("La categoría ya existe")
-    }else{
+      window.alert("La marca ya existe")
+    }else {
       window.alert("Llenar todos los campos")
     }
-  
-     }
-   });
-   return false;
-  });
-  
-  });
-  </script>
 
+   }
+ });
+ return false;
+});
+
+});
+</script>
 
 </body>
 </html>
